@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         {
             for(int j = 0; j < sizeY; j++)
             {
-                minefield[i, j] = Instantiate(tilePrefab, new Vector3(i, 0, j), Quaternion.identity).GetComponent<Tile>();
+                minefield[i, j] = Instantiate(tilePrefab, new Vector3(i*1.1f, 0, j*1.1f), Quaternion.identity).GetComponent<Tile>();
             }
         }
     }
