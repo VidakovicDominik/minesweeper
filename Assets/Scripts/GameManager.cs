@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public int sizeX=10;
     public int sizeY=10;
+    public int numberOfMines = 20;
 
     public static GameManager Instance
     {
@@ -39,7 +40,23 @@ public class GameManager : MonoBehaviour
         {
             for(int j = 0; j < sizeY; j++)
             {
-                minefield[i, j] = Instantiate(tilePrefab, new Vector3(i*1.1f, 0, j*1.1f), Quaternion.identity).GetComponent<Tile>();
+                minefield[i, j] = Instantiate(tilePrefab, new Vector3(i*1.02f, 0, j*1.02f), Quaternion.identity).GetComponent<Tile>();
+            }
+        }
+    }
+
+    public void placeMines()
+    {
+        int minesPlaced = 0;
+        while (minesPlaced < numberOfMines)
+        {
+            int x = Random.Range(0, sizeX);
+            int y = Random.Range(0, sizeY);
+
+            if (minefield[y,x].getType().Equals(TileType.MINE))
+            {
+                minefield[y,x] = new Tile();
+                minesPlaced++;
             }
         }
     }

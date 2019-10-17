@@ -33,6 +33,15 @@ public class Tile : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
     }
 
+    public bool isTriggered()
+    {
+        return triggered;
+    }
+
+    public TileType getType()
+    {
+        return tyleType;
+    }
 }
 
 public enum TileType
