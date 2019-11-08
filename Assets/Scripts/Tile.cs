@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public TileType tyleType=TileType.EMPTY;
+    public TileType tyleType=TileType.HINT;
 
     public bool triggered=false;
 
+    public TextMesh textMesh;
+
     public Material triggeredMaterial;
+
+    public Tile(TileType type)
+    {
+        this.tyleType = type;
+    }
 
     void Start()
     {
@@ -46,5 +53,5 @@ public class Tile : MonoBehaviour
 
 public enum TileType
 {
-    MINE,CLEARED,EMPTY,HINT
+    MINE,HINT
 }

@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void placeMines()
+    private void placeMines()
     {
         int minesPlaced = 0;
         while (minesPlaced < numberOfMines)
@@ -55,9 +55,19 @@ public class GameManager : MonoBehaviour
 
             if (minefield[y,x].getType().Equals(TileType.MINE))
             {
-                minefield[y,x] = new Tile();
+                minefield[y,x] = new Tile(TileType.MINE);
                 minesPlaced++;
             }
         }
     }
+
+    private void fillWarningTiles()
+    {
+        for (int i = 0; i < sizeX; i++)
+        {
+            for (int j = 0; j < sizeY; j++)
+            {
+
+            }
+        }
 }
