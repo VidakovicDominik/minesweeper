@@ -67,7 +67,10 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < sizeY; j++)
             {
+                if (!minefield[i, j].getType().Equals(TileType.MINE))
+                {
 
+                }
             }
         }
 }
