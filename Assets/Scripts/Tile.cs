@@ -4,54 +4,54 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public TileType tyleType=TileType.HINT;
 
-    public bool triggered=false;
-
-    public TextMesh textMesh;
+    public bool isMine = false;
 
     public Material triggeredMaterial;
 
-    public Tile(TileType type)
+    private string coordinates;
+
+    public TextMesh textMesh;
+    
+
+    public Tile(bool isMine)
     {
-        this.tyleType = type;
+        this.isMine = isMine;
     }
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
+    }
+
+    public void setText(string text)
+    {
+        textMesh.text = text;
+    }
+
+    public void setCoordinates(string coordinates)
+    {
+        this.coordinates = coordinates;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!triggered && other.gameObject.CompareTag("Player"))
-            TriggerTile();
-    }
-
-    public void TriggerTile()
-    {
-        triggered = true;
-        this.GetComponent<Renderer>().material = triggeredMaterial;
-        transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
-    }
-
-    public bool isTriggered()
-    {
-        return triggered;
-    }
-
-    public TileType getType()
-    {
-        return tyleType;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
+            transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
+            Debug.Log(coordinates);
+            if (isMine)
+            {
+                Debug.Log("BOOM");
+            }
+        }
     }
 }
 
-public enum TileType
-{
-    MINE,HINT
-}
+

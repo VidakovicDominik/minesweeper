@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+    private bool[,] mineLocations;
     private Tile[,] minefield;
     public GameObject tilePrefab;
     public int sizeX=10;
@@ -35,12 +37,25 @@ public class GameManager : MonoBehaviour
 
     public void init()
     {
+        mineLocations = new bool[sizeX, sizeY];
         minefield = new Tile[sizeX, sizeY];
-        for(int i = 0; i < sizeX; i++)
+        placeMines();
+        for (int i = 0; i < sizeX; i++)
         {
             for(int j = 0; j < sizeY; j++)
             {
-                minefield[i, j] = Instantiate(tilePrefab, new Vector3(i*1.02f, 0, j*1.02f), Quaternion.identity).GetComponent<Tile>();
+                Tile tile = Instantiate(tilePrefab, new Vector3(i*1.02f, 0, j*1.02f*-1), Quaternion.identity).GetComponent<Tile>();
+                if (mineLocations[i, j])
+                {
+                    tile.isMine = true;
+                    tile.setText("M");
+                }
+                if (!mineLocations[i, j])
+                {
+                    tile.setText(countMines(i, j));
+                }
+                tile.setCoordinates(i + "," + j);
+                minefield[i, j] = tile;
             }
         }
     }
@@ -50,27 +65,64 @@ public class GameManager : MonoBehaviour
         int minesPlaced = 0;
         while (minesPlaced < numberOfMines)
         {
-            int x = Random.Range(0, sizeX);
-            int y = Random.Range(0, sizeY);
+            int x = UnityEngine.Random.Range(0, sizeX);
+            int y = UnityEngine.Random.Range(0, sizeY);
 
-            if (minefield[y,x].getType().Equals(TileType.MINE))
+            if (!mineLocations[x,y])
             {
-                minefield[y,x] = new Tile(TileType.MINE);
+                mineLocations[x,y] = true;
                 minesPlaced++;
             }
         }
     }
 
-    private void fillWarningTiles()
+    private string countMines(int x, int y)
     {
-        for (int i = 0; i < sizeX; i++)
+        int counter = 0;
+        if (checkMine(x-1,y))
         {
-            for (int j = 0; j < sizeY; j++)
-            {
-                if (!minefield[i, j].getType().Equals(TileType.MINE))
-                {
-
-                }
-            }
+            counter++;
         }
+        if (checkMine(x-1, y-1))
+        {
+            counter++;
+        }
+        if (checkMine(x-1, y+1))
+        {
+            counter++;
+        }
+        if (checkMine(x, y-1))
+        {
+            counter++;
+        }
+        if (checkMine(x, y+1))
+        {
+            counter++;
+        }
+        if (checkMine(x+1, y))
+        {
+            counter++;
+        }
+        if (checkMine(x+1, y-1))
+        {
+            counter++;
+        }
+        if (checkMine(x+1, y+1))
+        {
+            counter++;
+        }
+        return "" + counter;
+    }
+
+    private bool checkMine(int x, int y)
+    {
+        try
+        {
+            return mineLocations[x, y];
+        }catch(IndexOutOfRangeException e)
+        {
+            return false;
+        }
+        return false;
+    }
 }
