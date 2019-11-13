@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
 
     public bool isMine = false;
 
-    public bool isLoner = true;
+    public bool isLoner = false;
 
     public bool isTriggered = false;
 
@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
             {
                 Debug.Log("BOOM");
             }
-            else
+            else if(!isTriggered)
             {
                 GameManager.Instance.cascade(int.Parse(coordinates.Split(',')[0]), int.Parse(coordinates.Split(',')[1]));
             }

@@ -70,18 +70,28 @@ public class GameManager : MonoBehaviour
             {
                 int neighbouringMines = countMines(int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1]));
                 tile.setText("" + neighbouringMines);
-                if (neighbouringMines > 0)
+                if (neighbouringMines == 0)
                 {
-                    tile.isLoner = false;
+                    tile.isLoner = true;
                 }
-
             }
         }
     }
 
     public void cascade(int x, int y)
     {
-        //minefield[x, y].cle
+        minefield[x, y].clearField();
+        foreach(Tile tile in getNeighbouringTiles(x, y))
+        {
+            if (!tile.isTriggered)
+            {
+                minefield[int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1])].clearField();
+            }
+            if (tile.isLoner)
+            {
+                cascade(int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1]));
+            }
+        }
     }
 
     private void placeMines()
@@ -103,39 +113,6 @@ public class GameManager : MonoBehaviour
     private int countMines(int x, int y)
     {
         int counter = 0;
-        //if (checkMine(x - 1, y))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x - 1, y - 1))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x - 1, y + 1))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x, y - 1))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x, y + 1))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x + 1, y))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x + 1, y - 1))
-        //{
-        //    counter++;
-        //}
-        //if (checkMine(x + 1, y + 1))
-        //{
-        //    counter++;
-        //}
-        //return counter;
         foreach (Tile tile in getNeighbouringTiles(x, y))
         {
             if (tile.isMine)
@@ -171,15 +148,4 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool checkMine(int x, int y)
-    {
-        try
-        {
-            return mineLocations[x, y];
-        }
-        catch (IndexOutOfRangeException e)
-        {
-            return false;
-        }
-    }
 }
