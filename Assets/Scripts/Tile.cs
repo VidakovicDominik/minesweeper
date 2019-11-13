@@ -7,12 +7,16 @@ public class Tile : MonoBehaviour
 
     public bool isMine = false;
 
+    public bool isLoner = true;
+
+    public bool isTriggered = false;
+
     public Material triggeredMaterial;
 
-    private string coordinates;
+    public string coordinates;
 
     public TextMesh textMesh;
-    
+
 
     public Tile(bool isMine)
     {
@@ -39,16 +43,25 @@ public class Tile : MonoBehaviour
         this.coordinates = coordinates;
     }
 
+    public void clearField()
+    {
+        gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
+        transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
+        isTriggered = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
-            transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
             Debug.Log(coordinates);
             if (isMine)
             {
                 Debug.Log("BOOM");
+            }
+            else
+            {
+                GameManager.Instance.cascade(int.Parse(coordinates.Split(',')[0]), int.Parse(coordinates.Split(',')[1]));
             }
         }
     }
