@@ -45,5 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3867799518920105516, guid: e67f4aac21a2bd042a84f8b2e59d3f57,
     type: 3}
+  player: {fileID: 444271820710099253, guid: 6ab82324079e5fd47a58ca82057433eb, type: 3}
+  spotlight: {fileID: 8155700363481622479, guid: fe93d194b06ee494ea9eb5a6b8fafe29,
+    type: 3}
   sizeX: 10
   sizeY: 10
+  numberOfMines: 20

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class GameManager : MonoBehaviour
     private bool[,] mineLocations;
     private Tile[,] minefield;
     public GameObject tilePrefab;
+    public GameObject player;
+    public GameObject spotlight;
+    public GameObject mainCamera;
     public int sizeX=10;
     public int sizeY=10;
     public int numberOfMines = 20;
+    
 
     public static GameManager Instance
     {
@@ -27,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        player=Instantiate(player, new Vector3(1, 1, -1), Quaternion.identity);
+        spotlight=Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z),spotlight.transform.rotation);
+        mainCamera.GetComponentInChildren<CinemachineVirtualCamera>().m_Follow = player.transform;
+        mainCamera.GetComponentInChildren<CinemachineVirtualCamera>().m_LookAt = player.transform;
         init();
     }
 
