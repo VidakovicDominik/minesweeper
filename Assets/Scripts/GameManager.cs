@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
     {
         player = Instantiate(player, new Vector3(1, 1, -1), Quaternion.identity);
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
-        mainCamera.GetComponentInChildren<CinemachineVirtualCamera>().m_Follow = player.transform;
-        mainCamera.GetComponentInChildren<CinemachineVirtualCamera>().m_LookAt = player.transform;
+        mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
+        mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
 
         init();
     }

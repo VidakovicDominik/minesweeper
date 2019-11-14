@@ -49,6 +49,7 @@ public class Tile : MonoBehaviour
         {
             gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
             transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
+            transform.GetChild(0).gameObject.SetActive(true);
             isTriggered = true;
         }
     }
