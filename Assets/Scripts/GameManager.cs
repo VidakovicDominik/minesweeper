@@ -7,7 +7,6 @@ using Cinemachine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    private bool[,] mineLocations;
     private Tile[,] minefield;
     public GameObject tilePrefab;
     public GameObject player;
@@ -47,9 +46,9 @@ public class GameManager : MonoBehaviour
 
     public void init()
     {
-        mineLocations = new bool[sizeX, sizeY];
+        bool[,] mineLocations = getMineLocations();
         minefield = new Tile[sizeX, sizeY];
-        placeMines();
+        getMineLocations();
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
@@ -68,7 +67,7 @@ public class GameManager : MonoBehaviour
         {
             if (!tile.isMine)
             {
-                int neighbouringMines = countMines(int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1]));
+                int neighbouringMines = countNeighbouringMines(int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1]));
                 tile.setText("" + neighbouringMines);
                 if (neighbouringMines == 0)
                 {
@@ -94,8 +93,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void placeMines()
+    private bool[,] getMineLocations()
     {
+        bool[,] mineLocations = new bool[sizeX, sizeY];
+
         int minesPlaced = 0;
         while (minesPlaced < numberOfMines)
         {
@@ -108,9 +109,10 @@ public class GameManager : MonoBehaviour
                 minesPlaced++;
             }
         }
+        return mineLocations;
     }
 
-    private int countMines(int x, int y)
+    private int countNeighbouringMines(int x, int y)
     {
         int counter = 0;
         foreach (Tile tile in getNeighbouringTiles(x, y))
