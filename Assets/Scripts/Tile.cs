@@ -45,9 +45,12 @@ public class Tile : MonoBehaviour
 
     public void clearField()
     {
-        gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
-        transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
-        isTriggered = true;
+        if (!isTriggered)
+        {
+            gameObject.GetComponent<MeshRenderer>().material = triggeredMaterial;
+            transform.localScale = new Vector3(transform.localScale.x, 0.01f, transform.localScale.z);
+            isTriggered = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,13 +58,17 @@ public class Tile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log(coordinates);
-            if (isMine)
+            if (!isTriggered)
             {
-                Debug.Log("BOOM");
-            }
-            else if(!isTriggered)
-            {
-                GameManager.Instance.cascade(int.Parse(coordinates.Split(',')[0]), int.Parse(coordinates.Split(',')[1]));
+                clearField();
+                if (isMine)
+                {
+                    Debug.Log("BOOM");
+                }
+                else if (isLoner)
+                {
+                    GameManager.Instance.cascade(int.Parse(coordinates.Split(',')[0]), int.Parse(coordinates.Split(',')[1]));
+                }
             }
         }
     }

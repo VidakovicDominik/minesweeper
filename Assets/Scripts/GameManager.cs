@@ -79,15 +79,12 @@ public class GameManager : MonoBehaviour
 
     public void cascade(int x, int y)
     {
-        minefield[x, y].clearField();
         foreach(Tile tile in getNeighbouringTiles(x, y))
         {
-            if (!tile.isTriggered)
-            {
-                minefield[int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1])].clearField();
-            }
+            tile.clearField();
             if (tile.isLoner)
             {
+                tile.isLoner = false;
                 cascade(int.Parse(tile.coordinates.Split(',')[0]), int.Parse(tile.coordinates.Split(',')[1]));
             }
         }
