@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int sizeX = 10;
     public int sizeY = 10;
     public int numberOfMines = 20;
+    public float offset = 0;
 
 
     public static GameManager Instance
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < sizeY; j++)
             {
-                Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f * -1), Quaternion.identity).GetComponent<Tile>();
+                Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f), Quaternion.identity).GetComponent<Tile>();
                 if (mineLocations[i, j])
                 {
                     tile.isMine = true;
