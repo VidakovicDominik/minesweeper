@@ -13,6 +13,6 @@ public class SpotlightController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.transform.position=new Vector3(manager.player.transform.position.x, manager.player.transform.position.y+3, manager.player.transform.position.z);
+        this.transform.position=new Vector3(manager.playerPrefab.transform.position.x, manager.playerPrefab.transform.position.y+3, manager.playerPrefab.transform.position.z);
     }
 }

@@ -7,15 +7,21 @@ using Cinemachine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    private Tile[,] minefield;
+
     public GameObject tilePrefab;
-    public GameObject player;
+    public GameObject playerPrefab;
     public GameObject spotlight;
     public GameObject mainCamera;
+    public GameObject goalWall;
+
     public int sizeX = 10;
     public int sizeY = 10;
     public int numberOfMines = 20;
-    public float offset = 0;
+
+    private PlayerController player;
+    private Tile[,] minefield;
+
+    private bool gameOver=false;
 
 
     public static GameManager Instance
@@ -32,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = Instantiate(player, new Vector3(1, 1, -1), Quaternion.identity);
+        player = Instantiate(playerPrefab, new Vector3(1, 1, -1), Quaternion.identity).GetComponent<PlayerController>();
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
         mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
         mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
@@ -63,6 +69,10 @@ public class GameManager : MonoBehaviour
                 tile.setCoordinates(i + "," + j);
                 minefield[i, j] = tile;
             }
+            if (i == sizeX - 1)
+            {
+                Instantiate(goalWall, new Vector3(9.7f, 5, sizeY + 2), Quaternion.identity);
+            }
         }
         foreach(Tile tile in minefield)
         {
@@ -73,6 +83,7 @@ public class GameManager : MonoBehaviour
                 if (neighbouringMines == 0)
                 {
                     tile.isLoner = true;
+                    tile.setText("");
                 }
             }
         }
@@ -146,6 +157,12 @@ public class GameManager : MonoBehaviour
         catch (IndexOutOfRangeException e)
         {
         }
+    }
+
+    public void initGameOver()
+    {
+        gameOver = true;
+        player.kill();
     }
 
 }
