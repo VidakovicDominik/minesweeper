@@ -165,4 +165,8 @@ public class GameManager : MonoBehaviour
         player.kill();
     }
 
+    public GameObject getPlayer()
+    {
+        return player.gameObject;
+    }
 }

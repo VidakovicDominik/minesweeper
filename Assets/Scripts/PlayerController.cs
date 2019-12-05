@@ -41,12 +41,18 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D))
             {
-                transform.Translate(Vector3.right * speed);
+                if (transform.position.x < 19.7f)
+                {
+                    transform.Translate(Vector3.right * speed);
+                }
             }
 
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.left * speed);
+                if (transform.position.x > -0.3f)
+                {
+                    transform.Translate(Vector3.left * speed);
+                }
             }
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
