@@ -14,9 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public GameObject goalWall;
 
-    public int sizeX = 10;
-    public int sizeY = 10;
-    public int numberOfMines = 20;
+    private static int sizeX = 20;
 
     private PlayerController player;
     private Tile[,] minefield;
@@ -54,11 +52,11 @@ public class GameManager : MonoBehaviour
     public void init()
     {
         bool[,] mineLocations = getMineLocations();
-        minefield = new Tile[sizeX, sizeY];
+        minefield = new Tile[sizeX, GameMode.staticInstance.GetLevelLength()];
         getMineLocations();
         for (int i = 0; i < sizeX; i++)
         {
-            for (int j = 0; j < sizeY; j++)
+            for (int j = 0; j < GameMode.staticInstance.GetLevelLength(); j++)
             {
                 Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f), Quaternion.identity).GetComponent<Tile>();
                 if (mineLocations[i, j])
@@ -71,7 +69,7 @@ public class GameManager : MonoBehaviour
             }
             if (i == sizeX - 1)
             {
-                Instantiate(goalWall, new Vector3(9.7f, 5, sizeY + 2), Quaternion.identity);
+                Instantiate(goalWall, new Vector3(9.7f, 5, GameMode.staticInstance.GetLevelLength() + 2), Quaternion.identity);
             }
         }
         foreach(Tile tile in minefield)
@@ -104,13 +102,13 @@ public class GameManager : MonoBehaviour
 
     private bool[,] getMineLocations()
     {
-        bool[,] mineLocations = new bool[sizeX, sizeY];
+        bool[,] mineLocations = new bool[sizeX, GameMode.staticInstance.GetLevelLength()];
 
         int minesPlaced = 0;
-        while (minesPlaced < numberOfMines)
+        while (minesPlaced < GameMode.staticInstance.GetMineCount())
         {
             int x = UnityEngine.Random.Range(0, sizeX);
-            int y = UnityEngine.Random.Range(0, sizeY);
+            int y = UnityEngine.Random.Range(0, GameMode.staticInstance.GetLevelLength());
 
             if (!mineLocations[x, y])
             {
