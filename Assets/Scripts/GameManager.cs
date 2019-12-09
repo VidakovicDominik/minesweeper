@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,19 +45,19 @@ public class GameManager : MonoBehaviour
         init();
     }
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     public void init()
     {
         bool[,] mineLocations = getMineLocations();
-        minefield = new Tile[sizeX, GameMode.staticInstance.GetLevelLength()];
+        minefield = new Tile[sizeX, GameMode.GetLevelLength()];
         getMineLocations();
         for (int i = 0; i < sizeX; i++)
         {
-            for (int j = 0; j < GameMode.staticInstance.GetLevelLength(); j++)
+            for (int j = 0; j < GameMode.GetLevelLength(); j++)
             {
                 Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f), Quaternion.identity).GetComponent<Tile>();
                 if (mineLocations[i, j])
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
             }
             if (i == sizeX - 1)
             {
-                Instantiate(goalWall, new Vector3(9.7f, 5, GameMode.staticInstance.GetLevelLength() + 2), Quaternion.identity);
+                Instantiate(goalWall, new Vector3(9.7f, 5, GameMode.GetLevelLength() + 2), Quaternion.identity);
             }
         }
         foreach(Tile tile in minefield)
@@ -102,13 +103,13 @@ public class GameManager : MonoBehaviour
 
     private bool[,] getMineLocations()
     {
-        bool[,] mineLocations = new bool[sizeX, GameMode.staticInstance.GetLevelLength()];
+        bool[,] mineLocations = new bool[sizeX, GameMode.GetLevelLength()];
 
         int minesPlaced = 0;
-        while (minesPlaced < GameMode.staticInstance.GetMineCount())
+        while (minesPlaced < GameMode.GetMineCount())
         {
             int x = UnityEngine.Random.Range(0, sizeX);
-            int y = UnityEngine.Random.Range(0, GameMode.staticInstance.GetLevelLength());
+            int y = UnityEngine.Random.Range(0, GameMode.GetLevelLength());
 
             if (!mineLocations[x, y])
             {
@@ -161,6 +162,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         player.kill();
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public GameObject getPlayer()

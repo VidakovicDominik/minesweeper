@@ -8,28 +8,28 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
-        GameMode.staticInstance.GetMineCount();
+        GameMode.GetMineCount();
     }
 
     public void StartGameEasy()
     {
-        GameMode.staticInstance.SetLevelLength(100);
-        GameMode.staticInstance.SetMineCount(200);
+        GameMode.SetLevelLength(100);
+        GameMode.SetMineCount(200);
         SceneManager.LoadScene("GameScene");
 
     }
 
     public void StartGameMeduim()
     {
-        GameMode.staticInstance.SetLevelLength(150);
-        GameMode.staticInstance.SetMineCount(350);
+        GameMode.SetLevelLength(150);
+        GameMode.SetMineCount(350);
         SceneManager.LoadScene("GameScene");
     }
 
     public void StartGameHard()
     {
-        GameMode.staticInstance.SetLevelLength(250);
-        GameMode.staticInstance.SetMineCount(500);
+        GameMode.SetLevelLength(250);
+        GameMode.SetMineCount(500);
         SceneManager.LoadScene("GameScene");
     }
 

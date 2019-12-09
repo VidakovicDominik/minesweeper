@@ -16,22 +16,22 @@ public class GameMode : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    public void SetLevelLength(int diff)
+    public static void SetLevelLength(int diff)
     {
         levelLength=diff;
     }
 
-    public int GetLevelLength()
+    public static int GetLevelLength()
     {
         return levelLength;
     }
 
-    public void SetMineCount(int count)
+    public static void SetMineCount(int count)
     {
         mineCount = count;
     }
 
-    public int GetMineCount()
+    public static int GetMineCount()
     {
         return mineCount;
     }
