@@ -22,14 +22,14 @@ public class MainMenuController : MonoBehaviour
     public void StartGameMeduim()
     {
         GameMode.SetLevelLength(150);
-        GameMode.SetMineCount(350);
+        GameMode.SetMineCount(400);
         SceneManager.LoadScene("GameScene");
     }
 
     public void StartGameHard()
     {
         GameMode.SetLevelLength(250);
-        GameMode.SetMineCount(500);
+        GameMode.SetMineCount(700);
         SceneManager.LoadScene("GameScene");
     }
 
