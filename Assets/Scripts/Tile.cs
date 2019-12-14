@@ -65,6 +65,7 @@ public class Tile : MonoBehaviour
                 if (isMine)
                 {
                     Debug.Log("BOOM");
+                    GameManager.Instance.initGameOver();
                 }
                 else if (isLoner)
                 {

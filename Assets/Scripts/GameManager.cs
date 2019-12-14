@@ -3,18 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    private Tile[,] minefield;
+
     public GameObject tilePrefab;
-    public GameObject player;
+    public GameObject playerPrefab;
     public GameObject spotlight;
     public GameObject mainCamera;
-    public int sizeX = 10;
-    public int sizeY = 10;
-    public int numberOfMines = 20;
+    public GameObject goalWall;
+
+    private static int sizeX = 20;
+
+    private PlayerController player;
+    private Tile[,] minefield;
+
+    private bool gameOver=false;
 
 
     public static GameManager Instance
@@ -31,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = Instantiate(player, new Vector3(1, 1, -1), Quaternion.identity);
+        player = Instantiate(playerPrefab, new Vector3(1, 1, -1), Quaternion.identity).GetComponent<PlayerController>();
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
         mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
         mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
@@ -39,21 +45,21 @@ public class GameManager : MonoBehaviour
         init();
     }
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     public void init()
     {
         bool[,] mineLocations = getMineLocations();
-        minefield = new Tile[sizeX, sizeY];
+        minefield = new Tile[sizeX, GameMode.GetLevelLength()];
         getMineLocations();
         for (int i = 0; i < sizeX; i++)
         {
-            for (int j = 0; j < sizeY; j++)
+            for (int j = 0; j < GameMode.GetLevelLength(); j++)
             {
-                Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f * -1), Quaternion.identity).GetComponent<Tile>();
+                Tile tile = Instantiate(tilePrefab, new Vector3(i * 1.02f, 0, j * 1.02f), Quaternion.identity).GetComponent<Tile>();
                 if (mineLocations[i, j])
                 {
                     tile.isMine = true;
@@ -61,6 +67,10 @@ public class GameManager : MonoBehaviour
                 }
                 tile.setCoordinates(i + "," + j);
                 minefield[i, j] = tile;
+            }
+            if (i == sizeX - 1)
+            {
+                Instantiate(goalWall, new Vector3(9.7f, 5, GameMode.GetLevelLength() + 2), Quaternion.identity);
             }
         }
         foreach(Tile tile in minefield)
@@ -72,6 +82,7 @@ public class GameManager : MonoBehaviour
                 if (neighbouringMines == 0)
                 {
                     tile.isLoner = true;
+                    tile.setText("");
                 }
             }
         }
@@ -92,13 +103,13 @@ public class GameManager : MonoBehaviour
 
     private bool[,] getMineLocations()
     {
-        bool[,] mineLocations = new bool[sizeX, sizeY];
+        bool[,] mineLocations = new bool[sizeX, GameMode.GetLevelLength()];
 
         int minesPlaced = 0;
-        while (minesPlaced < numberOfMines)
+        while (minesPlaced < GameMode.GetMineCount())
         {
             int x = UnityEngine.Random.Range(0, sizeX);
-            int y = UnityEngine.Random.Range(0, sizeY);
+            int y = UnityEngine.Random.Range(0, GameMode.GetLevelLength());
 
             if (!mineLocations[x, y])
             {
@@ -147,4 +158,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void initGameOver()
+    {
+        gameOver = true;
+        player.kill();
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public GameObject getPlayer()
+    {
+        return player.gameObject;
+    }
 }
