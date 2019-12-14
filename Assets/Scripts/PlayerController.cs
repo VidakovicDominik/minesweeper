@@ -8,8 +8,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 200f;
     private Vector3 originalGravity;
     private Vector3 fallingGravity;
+    [SerializeField]
+    private GameObject faceCamera;
     private bool isGrounded = true;
     private bool rip = false;
+    private Animator animator;
+    private bool isWalking;
 
 
     // Start is called before the first frame update
@@ -17,58 +21,86 @@ public class PlayerController : MonoBehaviour
     {
         originalGravity = Physics.gravity;
         fallingGravity = Physics.gravity * 3.5f;
+        GameManager.Instance.faceCamera = faceCamera;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void FixedUpdate()
-    {
         if (!rip)
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.Translate(Vector3.forward * speed);
-            }
+            handleWalking();
+            handleRotataion();
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+        }
+    }
 
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(Vector3.back * speed);
-            }
+    private void handleWalking()
+    {
+        isWalking = false;
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
+            isWalking = true;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
+            isWalking = true;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
+            isWalking = true;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
+            isWalking = true;
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (transform.position.x < 19.7f)
-                {
-                    transform.Translate(Vector3.right * speed);
-                }
-            }
+        }
 
-            if (Input.GetKey(KeyCode.A))
+        if (isWalking)
+        {
+            if (!animator.GetBool("IsWalking"))
             {
-                if (transform.position.x > -0.3f)
-                {
-                    transform.Translate(Vector3.left * speed);
-                }
+                animator.SetBool("IsWalking", true);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        }
+        else
+        {
+            if (animator.GetBool("IsWalking"))
             {
-                GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
-            }
-            if (GetComponent<Rigidbody>().velocity.y < 0)
-            {
-                Physics.gravity = fallingGravity;
-            }
-            else
-            {
-                Physics.gravity = originalGravity;
+                animator.SetBool("IsWalking", false);
             }
         }
     }
+
+    private void handleRotataion()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+        }
+
+    }
+
 
     public void kill()
     {

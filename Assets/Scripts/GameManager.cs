@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainCamera;
     public GameObject goalWall;
+    public GameObject faceCamera;
+    public GameObject playerHolder;
+    public GameObject timelineManager;
 
     private static int sizeX = 20;
 
@@ -37,18 +41,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = Instantiate(playerPrefab, new Vector3(1, 1, -1), Quaternion.identity).GetComponent<PlayerController>();
+        player = Instantiate(playerPrefab, new Vector3(playerHolder.transform.position.x,1, playerHolder.transform.position.z), Quaternion.identity,playerHolder.transform).GetComponent<PlayerController>();
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
-        mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
-        mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
+        //mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
+        //mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
 
         init();
     }
-
-    //void Awake()
-    //{
-    //    DontDestroyOnLoad(gameObject);
-    //}
 
     public void init()
     {
@@ -162,7 +161,8 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         player.kill();
-        SceneManager.LoadScene("MainMenuScene");
+        //SceneManager.LoadScene("MainMenuScene");
+        timelineManager.GetComponent<PlayableDirector>().Play();
     }
 
     public GameObject getPlayer()
