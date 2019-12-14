@@ -136,7 +136,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299101113}
-  m_LocalRotation: {x: 0.19962202, y: -0.000000004175021, z: 8.505447e-10, w: 0.979873}
+  m_LocalRotation: {x: 0.199622, y: -0.000000023444855, z: 0.00000000477624, w: 0.979873}
   m_LocalPosition: {x: 10.9, y: 3.4899998, z: -12.450001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -215,7 +215,13 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 114906320171115646, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
     value: {fileID: 694668664}
-  - key: {fileID: 114270073942578174, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
+  - key: {fileID: 114465705849411152, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114517571820982264, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114681383735446166, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114075878985420164, guid: 11843bf7223b92a439c7eda2ecec1dc1, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
@@ -309,7 +315,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.19962202, y: -0.000000004175021, z: 8.505447e-10, w: 0.979873}
+  m_LocalRotation: {x: 0.199622, y: -0.000000023444855, z: 0.00000000477624, w: 0.979873}
   m_LocalPosition: {x: 10.9, y: 3.4899998, z: -12.450001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
