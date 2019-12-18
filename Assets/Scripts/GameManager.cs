@@ -5,6 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,16 +16,19 @@ public class GameManager : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainCamera;
     public GameObject goalWall;
-    public GameObject faceCamera;
+    private GameObject faceCamera;
     public GameObject playerHolder;
     public GameObject timelineManager;
+    private float timer = 120;
+    public Text timerText;
+    public GameObject hudScreen;
 
     private static int sizeX = 20;
 
     private PlayerController player;
     private Tile[,] minefield;
 
-    private bool gameOver=false;
+    private bool gameOver = false;
 
 
     public static GameManager Instance
@@ -41,12 +45,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = Instantiate(playerPrefab, new Vector3(playerHolder.transform.position.x,1, playerHolder.transform.position.z), Quaternion.identity,playerHolder.transform).GetComponent<PlayerController>();
+        player = Instantiate(playerPrefab, new Vector3(playerHolder.transform.position.x, 1, playerHolder.transform.position.z), Quaternion.identity, playerHolder.transform).GetComponent<PlayerController>();
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
-        //mainCamera.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
-        //mainCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
-
         init();
+    }
+
+    void Update()
+    {
+        if (!gameOver && timer > 0)
+        {
+            timer -= Time.deltaTime;
+            timerText.text = "" + timer;
+        }
+        else
+        {
+            initGameOver();
+        }
     }
 
     public void init()
@@ -72,7 +86,7 @@ public class GameManager : MonoBehaviour
                 Instantiate(goalWall, new Vector3(9.7f, 5, GameMode.GetLevelLength() + 2), Quaternion.identity);
             }
         }
-        foreach(Tile tile in minefield)
+        foreach (Tile tile in minefield)
         {
             if (!tile.isMine)
             {
@@ -89,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     public void cascade(int x, int y)
     {
-        foreach(Tile tile in getNeighbouringTiles(x, y))
+        foreach (Tile tile in getNeighbouringTiles(x, y))
         {
             tile.clearField();
             if (tile.isLoner)
@@ -161,7 +175,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = true;
         player.kill();
-        //SceneManager.LoadScene("MainMenuScene");
+        hudScreen.SetActive(false);
         timelineManager.GetComponent<PlayableDirector>().Play();
     }
 
@@ -169,4 +183,27 @@ public class GameManager : MonoBehaviour
     {
         return player.gameObject;
     }
+
+    public void setFaceCamera(GameObject camera)
+    {
+        this.faceCamera = camera;
+    }
+
+    public GameObject getFaceCamera()
+    {
+        return faceCamera;
+    }
+
+    #region UI Management
+    public void returnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
+    #endregion
 }

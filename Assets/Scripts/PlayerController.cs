@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         originalGravity = Physics.gravity;
         fallingGravity = Physics.gravity * 3.5f;
-        GameManager.Instance.faceCamera = faceCamera;
+        GameManager.Instance.setFaceCamera(faceCamera);
         animator = GetComponent<Animator>();
     }
 
