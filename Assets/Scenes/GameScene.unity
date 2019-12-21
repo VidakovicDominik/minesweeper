@@ -264,7 +264,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 20810435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1899765665}
+        m_MethodName: returnToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &20810435
@@ -427,7 +438,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299101113}
-  m_LocalRotation: {x: 0.199622, y: -0.000000023444855, z: 0.00000000477624, w: 0.979873}
+  m_LocalRotation: {x: 0.199622, y: 0.000000023444857, z: -0.000000004776241, w: 0.979873}
   m_LocalPosition: {x: 10.9, y: 3.4899998, z: -12.450001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -550,7 +561,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 508597200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1899765665}
+        m_MethodName: restartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &508597200
@@ -728,7 +750,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.199622, y: -0.000000023444855, z: 0.00000000477624, w: 0.979873}
+  m_LocalRotation: {x: 0.199622, y: 0.000000023444857, z: -0.000000004776241, w: 0.979873}
   m_LocalPosition: {x: 10.9, y: 3.4899998, z: -12.450001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1587,6 +1609,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5058032338038752390}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1899765665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5058032337933952760, guid: 5ff9625b5b764db40814b75d0cf1c827,
+    type: 3}
+  m_PrefabInstance: {fileID: 5058032338038752390}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899765664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59d084f063e5f94c8cece741417c733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4670759408977736303
 PrefabInstance:
   m_ObjectHideFlags: 0

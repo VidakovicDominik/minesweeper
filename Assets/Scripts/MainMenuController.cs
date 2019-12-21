@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    public Canvas settings;
+    public Canvas mainMenu;
+    public Slider musicSlider;
+    public Slider sfxSlider;
 
     void Awake()
     {
-        GameMode.GetMineCount();
+        musicSlider.value = PlayerPrefs.GetFloat("music");
+        sfxSlider.value = PlayerPrefs.GetFloat("sfx");
     }
 
     public void StartGameEasy()
@@ -33,4 +39,22 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void OpenSettings()
+    {
+        mainMenu.gameObject.SetActive(false);
+        settings.gameObject.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        mainMenu.gameObject.SetActive(true);
+        settings.gameObject.SetActive(false);
+        SaveSettings();
+    }
+
+    public void SaveSettings()
+    {
+        PlayerPrefs.SetFloat("music", musicSlider.value);
+        PlayerPrefs.SetFloat("sfx", sfxSlider.value);
+    }
 }
