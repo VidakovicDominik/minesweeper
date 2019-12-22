@@ -52,6 +52,11 @@ public class MainMenuController : MonoBehaviour
         SaveSettings();
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
     public void SaveSettings()
     {
         PlayerPrefs.SetFloat("music", musicSlider.value);
