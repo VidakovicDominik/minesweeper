@@ -21,6 +21,7 @@ public class MainMenuController : MonoBehaviour
     {
         GameMode.SetLevelLength(100);
         GameMode.SetMineCount(200);
+        GameMode.SetTime(240);
         SceneManager.LoadScene("GameScene");
 
     }
@@ -29,13 +30,15 @@ public class MainMenuController : MonoBehaviour
     {
         GameMode.SetLevelLength(150);
         GameMode.SetMineCount(400);
+        GameMode.SetTime(180);
         SceneManager.LoadScene("GameScene");
     }
 
     public void StartGameHard()
     {
-        GameMode.SetLevelLength(250);
-        GameMode.SetMineCount(700);
+        GameMode.SetLevelLength(200);
+        GameMode.SetMineCount(500);
+        GameMode.SetTime(120);
         SceneManager.LoadScene("GameScene");
     }
 

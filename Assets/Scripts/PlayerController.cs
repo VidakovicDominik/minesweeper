@@ -42,28 +42,12 @@ public class PlayerController : MonoBehaviour
     private void handleWalking()
     {
         isWalking = false;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.A))
         {
-            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
+            Vector3 directrin=transform.forward * speed * Time.deltaTime;
+            transform.parent.Translate(directrin);
             isWalking = true;
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
-            isWalking = true;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
-            isWalking = true;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.parent.Translate(transform.forward * speed * Time.deltaTime);
-            isWalking = true;
-
-        }
-
         if (isWalking)
         {
             if (!animator.GetBool("IsWalking"))
@@ -82,19 +66,36 @@ public class PlayerController : MonoBehaviour
 
     private void handleRotataion()
     {
-        if (Input.GetKey(KeyCode.W))
+
+        if (Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 45, 0));
+        }
+        else if (Input.GetKey(KeyCode.D)&&Input.GetKey(KeyCode.S))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 135, 0));
+        }
+        else if (Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 225, 0));
+        }
+        else if (Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 315, 0));
+        }
+        else if (Input.GetKey(KeyCode.W))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
         }

@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
     private bool gameOver = false;
 
-
     public static GameManager Instance
     {
         get
@@ -45,8 +44,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Camera.main.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("music");
-        player = Instantiate(playerPrefab, new Vector3(playerHolder.transform.position.x, 1, playerHolder.transform.position.z), Quaternion.identity, playerHolder.transform).GetComponent<PlayerController>();
+        timer = GameMode.GetTime();
+        AudioManager.Instance.applyVolume();
+        player = Instantiate(playerPrefab, new Vector3(playerHolder.transform.position.x, 1, playerHolder.transform.position.z),
+         Quaternion.identity, playerHolder.transform).GetComponent<PlayerController>();
         spotlight = Instantiate(spotlight, new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z), spotlight.transform.rotation);
         init();
     }

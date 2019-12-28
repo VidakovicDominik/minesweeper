@@ -8,6 +8,7 @@ public class GameMode : MonoBehaviour
     public static GameMode staticInstance;
     private static int levelLength = 100;
     private static int mineCount = 200;
+    private static float timeLimit = 190;
 
     void Awake()
     {
@@ -34,5 +35,15 @@ public class GameMode : MonoBehaviour
     public static int GetMineCount()
     {
         return mineCount;
+    }
+
+    public static void SetTime(float time)
+    {
+        timeLimit = time;
+    }
+
+    public static float GetTime()
+    {
+        return timeLimit;
     }
 }
