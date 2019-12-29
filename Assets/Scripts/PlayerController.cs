@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!rip)
         {
-            handleWalking();
+            if (!((Input.GetKey(KeyCode.A) && transform.position.x < 0f) || (Input.GetKey(KeyCode.D) && transform.position.x > 19.5f)))
+            {
+                handleWalking();
+            }
             handleRotataion();
         }
         else
@@ -41,9 +44,9 @@ public class PlayerController : MonoBehaviour
     private void handleWalking()
     {
         isWalking = false;
-        if (Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A))
         {
-            Vector3 directrin=transform.forward * speed * Time.deltaTime;
+            Vector3 directrin = transform.forward * speed * Time.deltaTime;
             transform.parent.Translate(directrin);
             isWalking = true;
         }
@@ -66,19 +69,19 @@ public class PlayerController : MonoBehaviour
     private void handleRotataion()
     {
 
-        if (Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 45, 0));
         }
-        else if (Input.GetKey(KeyCode.D)&&Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 135, 0));
         }
-        else if (Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 225, 0));
         }
-        else if (Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 315, 0));
         }
@@ -100,7 +103,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
 
     public void kill()
     {

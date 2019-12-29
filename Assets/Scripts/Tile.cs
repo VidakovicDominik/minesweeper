@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
 
     public Material triggeredMaterial;
 
-    public string coordinates;
+    public Coordinates coordinates;
 
     public TextMesh textMesh;
 
@@ -23,22 +23,12 @@ public class Tile : MonoBehaviour
         this.isMine = isMine;
     }
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     public void setText(string text)
     {
         textMesh.text = text;
     }
 
-    public void setCoordinates(string coordinates)
+    public void setCoordinates(Coordinates coordinates)
     {
         this.coordinates = coordinates;
     }
@@ -58,7 +48,7 @@ public class Tile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log(coordinates);
+            Debug.Log(coordinates.getX()+","+coordinates.getY());
             if (!isTriggered)
             {
                 AudioManager.Instance.playClick();
@@ -70,7 +60,7 @@ public class Tile : MonoBehaviour
                 }
                 else if (isLoner)
                 {
-                    GameManager.Instance.cascade(int.Parse(coordinates.Split(',')[0]), int.Parse(coordinates.Split(',')[1]));
+                    GameManager.Instance.minefieldManager.cascade(coordinates);
                 }
             }
         }
