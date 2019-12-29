@@ -61,11 +61,12 @@ public class Tile : MonoBehaviour
             Debug.Log(coordinates);
             if (!isTriggered)
             {
+                AudioManager.Instance.playClick();
                 clearField();
                 if (isMine)
                 {
                     Debug.Log("BOOM");
-                    GameManager.Instance.initGameOver();
+                    GameManager.Instance.initGameOver(false);
                 }
                 else if (isLoner)
                 {

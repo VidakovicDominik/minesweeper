@@ -5,7 +5,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource musicAudioSource;
     public AudioSource clickAudioSource;
-    public AudioSource timelineAudioSource;
 
     public static AudioManager Instance
     {
@@ -13,7 +12,7 @@ public class AudioManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new AudioManager();
+                _instance = GameObject.FindObjectOfType<AudioManager>();
             }
             return _instance;
         }
@@ -21,9 +20,20 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        AudioSource[] audios = Camera.main.GetComponents<AudioSource>();
-        audios[0].volume = PlayerPrefs.GetFloat("sfx");
-        audios[1].volume = PlayerPrefs.GetFloat("music");
+        clickAudioSource.volume = PlayerPrefs.GetFloat("sfx");
+        musicAudioSource.volume = PlayerPrefs.GetFloat("music");
+    }
+
+    public void playClick(){
+        clickAudioSource.Play();
+    }
+
+    public void playMusic(){
+        musicAudioSource.Play();
+    }
+
+    public void pauseMusic(){
+        musicAudioSource.Pause();
     }
 
 }

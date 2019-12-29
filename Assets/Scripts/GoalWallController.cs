@@ -21,7 +21,7 @@ public class GoalWallController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Level Cleared");
-            GameManager.Instance.initGameOver();
+            GameManager.Instance.initGameOver(true);
         }
     }
 }

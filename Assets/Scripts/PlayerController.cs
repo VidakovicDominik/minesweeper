@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 fallingGravity;
     [SerializeField]
     private GameObject faceCamera;
-    private bool isGrounded = true;
     private bool rip = false;
     private Animator animator;
     private bool isWalking;
@@ -108,8 +107,4 @@ public class PlayerController : MonoBehaviour
         rip = true;
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        isGrounded = true;
-    }
 }

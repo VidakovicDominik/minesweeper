@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraActivator : MonoBehaviour
+public class MusicResumer : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.Instance.pauseMusic();
-        GameManager.Instance.getFaceCamera().SetActive(true);
+        AudioManager.Instance.playMusic();
+        gameObject.SetActive(false);
     }
-    
 }
